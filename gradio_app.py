@@ -62,9 +62,9 @@ with gr.Blocks() as demo:
         topic_input = gr.Textbox(label="Enter a blog topic:", value="How to Learn Machine Learning")
         mode_input = gr.Radio(["Simple", "Advanced"], label="Mode", value="Simple")
         with gr.Column():
-            max_length_slider = gr.Slider(256, 1024, value=512, step=128, label="Maximum Length").style(container=False)
-            temperature_slider = gr.Slider(0.1, 1.5, value=0.7, step=0.1, label="Temperature").style(container=False)
-            top_p_slider = gr.Slider(0.1, 1.0, value=0.9, step=0.1, label="Top-p").style(container=False)
+            max_length_slider = gr.Slider(256, 1024, value=512, step=128, label="Maximum Length")
+            temperature_slider = gr.Slider(0.1, 1.5, value=0.7, step=0.1, label="Temperature")
+            top_p_slider = gr.Slider(0.1, 1.0, value=0.9, step=0.1, label="Top-p")
     
     output_blog = gr.Markdown()
     output_word = gr.File(label="Download Blog Post (Word Format)", type="file")

@@ -67,7 +67,7 @@ with gr.Blocks() as demo:
             top_p_slider = gr.Slider(0.1, 1.0, value=0.9, step=0.1, label="Top-p")
     
     output_blog = gr.Markdown()
-    output_word = gr.File(label="Download Blog Post (Word Format)", type="file")
+    output_word = gr.File(label="Download Blog Post (Word Format)", type="filepath")
     
     generate_button = gr.Button("Generate Blog")
     

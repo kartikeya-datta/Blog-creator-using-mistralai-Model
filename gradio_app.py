@@ -19,7 +19,7 @@ def load_model():
 
 # Generate blog content
 def generate_blog(topic, max_length=512, temperature=0.7, top_p=0.9):
-    prompt = f"[INST] Write a detailed blog post about {topic}. [/INST]"
+    prompt = f"Write a detailed blog post about {topic}."
     result = generator(
         prompt, 
         max_length=max_length, 
@@ -28,6 +28,10 @@ def generate_blog(topic, max_length=512, temperature=0.7, top_p=0.9):
         top_p=top_p,
         truncation=True
     )[0]["generated_text"]
+    
+    # Clean up any potential leading repetition
+    result = result.replace(f"How to Learn {topic}", "").strip()
+    
     return result
 
 # Create Word document from blog content

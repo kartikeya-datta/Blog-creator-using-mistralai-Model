@@ -4,6 +4,7 @@ import torch
 from io import BytesIO
 from docx import Document
 from huggingface_hub import login
+import os
 
 # Load Mistral-7B model
 def load_model():
@@ -24,7 +25,8 @@ def generate_blog(topic, max_length=512, temperature=0.7, top_p=0.9):
         max_length=max_length, 
         do_sample=True,
         temperature=temperature,
-        top_p=top_p
+        top_p=top_p,
+        truncation=True
     )[0]["generated_text"]
     return result
 
@@ -34,11 +36,10 @@ def create_word_doc(content):
     doc.add_heading('Generated Blog Post', 0)
     doc.add_paragraph(content)
     
-    # Save the document to a BytesIO object
-    bio = BytesIO()
-    doc.save(bio)
-    bio.seek(0)
-    return bio
+    # Save the document to a file instead of BytesIO
+    file_path = "/tmp/generated_blog.docx"  # Modify this to save in a desired directory
+    doc.save(file_path)
+    return file_path
 
 # Initialize Gradio interface
 def blog_generator(topic, mode, max_length=512, temperature=0.7, top_p=0.9):
@@ -53,8 +54,10 @@ def blog_generator(topic, mode, max_length=512, temperature=0.7, top_p=0.9):
 
     blog_content = generate_blog(topic, max_length, temperature, top_p)
     
-    word_doc = create_word_doc(blog_content)
-    return blog_content, word_doc
+    # Save blog content to Word document
+    word_doc_path = create_word_doc(blog_content)
+    
+    return blog_content, word_doc_path  # Return the file path instead of the content of the BytesIO
 
 # Gradio Interface
 with gr.Blocks() as demo:

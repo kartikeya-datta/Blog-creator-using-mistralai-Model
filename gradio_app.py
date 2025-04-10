@@ -3,9 +3,11 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 import torch
 from io import BytesIO
 from docx import Document
+from huggingface_hub import login
 
 # Load Mistral-7B model
 def load_model():
+    login(token="your_huggingface_token_here")
     tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.1")
     model = AutoModelForCausalLM.from_pretrained(
         "mistralai/Mistral-7B-Instruct-v0.1",

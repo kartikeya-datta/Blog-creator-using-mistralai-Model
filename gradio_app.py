@@ -76,4 +76,4 @@ with gr.Blocks() as demo:
                           outputs=[output_blog, output_word])
 
 # Launch Gradio app
-demo.launch()
+demo.launch(share=True)
